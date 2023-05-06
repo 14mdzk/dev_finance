@@ -1,0 +1,54 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+    - 5432:5432
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=dev_finance
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docs:/docs
+    environment:
+      - SWAGGER_JSON=/docs/api.yaml
+      - BASE_URL=/swagger
+
+  migrate:
+    profiles: ["tools"]
+    build:
+      context: ./docker
+      dockerfile: migrate.dockerfile
+      args:
+        - UID=1000
+        - GID=1000
+        - USER=mdzk
+    volumes:
+      - ./db/migrations:/migrations
+    entrypoint: 
+      [
+        "migrate",
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@db:5432/dev_finance?sslmode=disable",
+      ]
+    command: ["up"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
