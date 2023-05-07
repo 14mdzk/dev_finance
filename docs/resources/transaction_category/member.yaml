@@ -1,0 +1,80 @@
+get:
+  summary: Detail of transaction category
+  description: Detail of transaction category
+  tags: 
+    - Transaction Category
+  responses:
+    200:
+      description: Success get detail of transaction category
+      content:
+        application/json:
+          schema:
+            $ref: './entity.yaml#/schemas/Response'
+
+    404:
+      description: Failed when get detail of transaction category
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityNotFound'
+
+patch:
+  summary: Update transaction category data
+  description: Update transaction category data
+  tags: 
+    - Transaction Category
+  requestBody:
+    description: Update transaction category data
+    content:
+      application/json:
+        schema:
+          $ref: './entity.yaml#/schemas/Entity'
+    required: true
+  responses:
+    200:
+      description: Success update transaction category data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityUpdated'
+
+    400:
+      description: Failed when update transaction category data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityUpdateFailed'
+
+    422:
+      description: Failed when update transaction category data, request format invalid
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseFormRequestInvalid'
+
+delete:
+  summary: Delete transaction category data
+  description: Delete transaction category data
+  tags: 
+    - Transaction Category
+  responses:
+    200:
+      description: Success delete transaction category data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityDeleted'
+
+    400:
+      description: Failed when delete transaction category data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityDeleteFailed'
+
+    404:
+      description: Failed when get detail of transaction category
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityNotFound'

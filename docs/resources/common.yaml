@@ -1,0 +1,120 @@
+schemas:
+  ResponseEntityCreated:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "success"
+      message:
+        type: string
+        example: "entity created"
+
+  ResponseEntityCreateFailed:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "failed to create entity"
+
+  ResponseEntityDeleted:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "success"
+      message:
+        type: string
+        example: "entity deleted"
+
+  ResponseEntityDeleteFailed:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "failed to delete entity"
+
+  ResponseEntityUpdated:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "success"
+      message:
+        type: string
+        example: "entity updated"
+
+  ResponseEntityUpdateFailed:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "failed to update entity"
+
+  ResponseEntityFailedToLoad:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "failed to get list of entity"
+
+  ResponseEntityNotFound:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "record not found"
+
+  ResponseFormRequestInvalid:
+    type: object
+    properties:
+      staus:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "request format invalid"
+
+  ResponseIntervalServerError:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "internal server error"
+
+  ResponseUnauthenticated:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "unauthenticated"
+
+  ResponseUnauthorized:
+    type: object
+    properties:
+      status:
+        type: string
+        example: "failed"
+      message:
+        type: string
+        example: "unauthorized"

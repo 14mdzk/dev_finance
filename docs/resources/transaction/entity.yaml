@@ -1,0 +1,82 @@
+schemas:
+  Response:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: success get detail of currency
+      data:
+        $ref: '#/schemas/Entity'
+
+  ResponseList:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: success get list of currency
+      data:
+        type: array
+        items:
+          $ref: '#/schemas/Entity'
+
+  Entity:
+    type: object
+    properties:
+      date:
+        type: date
+        format: date
+        example: "01-02-2023"
+      transaction_type_id:
+        type: integer
+        format: integer
+      transaction_type:
+        $ref: "../transaction_type/entity.yaml#/entity"
+      transaction_category_id:
+        type: integer
+        format: integer
+      transaction_category:
+        $ref: "../transaction_type/entity.yaml#/entity"
+      note:
+        type: string
+        format: string
+        example: "Help Nakama"
+      amount:
+        type: integer
+        format: integer
+        example: "10000000"
+      currency_id:
+        type: integer
+        format: integer
+      currency:
+        $ref: "../currency/entity.yaml#/entity"
+        
+  EntityRequest:
+    type: object
+    properties:
+      date:
+        type: date
+        format: date
+        example: "01-02-2023"
+      transaction_type_id:
+        type: integer
+        format: integer
+      transaction_category_id:
+        type: integer
+        format: integer
+      note:
+        type: string
+        format: string
+        example: "Help Nakama"
+      amount:
+        type: integer
+        format: integer
+        example: "10000000"
+      currency_id:
+        type: integer
+        format: integer

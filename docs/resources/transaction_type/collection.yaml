@@ -1,0 +1,53 @@
+get:
+  summary: List of transaction type
+  description: List of transaction type
+  tags: 
+    - Transaction Type
+  responses:
+    200:
+      description: Success get list of transaction type
+      content:
+        application/json:
+          schema:
+            $ref: './entity.yaml#/schemas/ResponseList'
+
+    400:
+      description: Failed when get list of transaction type
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityFailedToLoad'
+
+post:
+  summary: Create transaction type data
+  description: Create transaction type data
+  tags: 
+    - Transaction Type
+  requestBody:
+    description: Create transaction type data
+    content:
+      application/json:
+        schema:
+          $ref: './entity.yaml#/schemas/Entity'
+    required: true
+  responses:
+    200:
+      description: Success create transaction type data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityCreated'
+
+    422:
+      description: Failed when create transaction type data, request format invalid
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseFormRequestInvalid'
+
+    400:
+      description: Failed when create transaction type data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityCreateFailed'
