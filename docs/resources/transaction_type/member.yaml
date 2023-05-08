@@ -3,6 +3,14 @@ get:
   description: Detail of transaction type
   tags: 
     - Transaction Type
+
+  parameters:
+    - in: path
+      name: transactionTypeId
+      required: true
+      description: The ID of the transaction type to return.
+      type: integer
+      example: 1
   responses:
     200:
       description: Success get detail of transaction type
@@ -23,12 +31,19 @@ patch:
   description: Update transaction type data
   tags: 
     - Transaction Type
+  parameters:
+    - in: path
+      name: transactionTypeId
+      required: true
+      description: The ID of the transaction type to return.
+      type: integer
+      example: 1
   requestBody:
     description: Update transaction type data
     content:
       application/json:
         schema:
-          $ref: './entity.yaml#/schemas/Entity'
+          $ref: './entity.yaml#/schemas/EntityRequest'
     required: true
   responses:
     200:
@@ -57,6 +72,13 @@ delete:
   description: Delete transaction type data
   tags: 
     - Transaction Type
+  parameters:
+    - in: path
+      name: transactionTypeId
+      required: true
+      description: The ID of the transaction type to return.
+      type: integer
+      example: 1
   responses:
     200:
       description: Success delete transaction type data
