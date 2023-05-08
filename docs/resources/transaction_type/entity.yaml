@@ -40,3 +40,15 @@ schemas:
         type: string
         format: string
         example: "Income"
+
+  EntityRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        format: string
+        example: "Income"
+      description:
+        type: string
+        format: string
+        example: "Income"

@@ -10,6 +10,9 @@ import (
 	_ "github.com/lib/pq"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/14mdzk/dev_finance/internal/app/controller"
+	"github.com/14mdzk/dev_finance/internal/app/repository"
+	"github.com/14mdzk/dev_finance/internal/app/service"
 	"github.com/14mdzk/dev_finance/internal/pkg/config"
 	"github.com/14mdzk/dev_finance/internal/pkg/db"
 	"github.com/14mdzk/dev_finance/internal/pkg/middleware"
@@ -48,8 +51,8 @@ func main() {
 	router := gin.New()
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"PUT", "PATCH"},
-		AllowHeaders:     []string{"Origin"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
@@ -58,6 +61,26 @@ func main() {
 		MaxAge: 12 * time.Hour,
 	}))
 	router.Use(middleware.LogginMiddleware(), middleware.RecoveryMiddleware())
+
+	transactionTypeRepository := repository.NewTransactionTypeRepository(DBConn)
+	transactionTypeService := service.NewTransactionTypeService(transactionTypeRepository)
+	transactionTypeController := controller.NewTransactionTypeController(transactionTypeService)
+
+	router.GET("/transaction_types", transactionTypeController.BrowseTransactionType)
+	router.POST("/transaction_types", transactionTypeController.CreateTransactionType)
+	router.GET("/transaction_types/:id", transactionTypeController.FindTransactionType)
+	router.PATCH("/transaction_types/:id", transactionTypeController.UpdateTransactionType)
+	router.DELETE("/transaction_types/:id", transactionTypeController.DeleteTransactionType)
+
+	currencyRepository := repository.NewCurrencyRepository(DBConn)
+	currencyService := service.NewCurrencyService(currencyRepository)
+	currencyController := controller.NewCurrencyController(currencyService)
+
+	router.GET("/currencies", currencyController.BrowseCurrency)
+	router.POST("/currencies", currencyController.CreateCurrency)
+	router.GET("/currencies/:id", currencyController.FindCurrency)
+	router.PATCH("/currencies/:id", currencyController.UpdateCurrency)
+	router.DELETE("/currencies/:id", currencyController.DeleteCurrency)
 
 	router.Run(fmt.Sprintf(":%s", cfg.ServerPort))
 }

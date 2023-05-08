@@ -61,7 +61,7 @@ func (svc *CurrencyService) FindById(currencyID string) (schema.CurrencyResp, er
 
 	return resp, nil
 }
-func (svc *CurrencyService) Create(req *schema.CurrencyReq) error {
+func (svc *CurrencyService) Create(req schema.CurrencyReq) error {
 	currency := model.Currency{
 		Name:         req.Name,
 		Abbreviation: req.Abbreviation,
@@ -74,7 +74,7 @@ func (svc *CurrencyService) Create(req *schema.CurrencyReq) error {
 
 	return nil
 }
-func (svc *CurrencyService) Update(currencyID string, req *schema.CurrencyReq) error {
+func (svc *CurrencyService) Update(currencyID string, req schema.CurrencyReq) error {
 	currency := model.Currency{
 		Name:         req.Name,
 		Abbreviation: req.Abbreviation,

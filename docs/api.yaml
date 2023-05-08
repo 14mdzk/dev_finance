@@ -21,14 +21,14 @@ paths:
   /currencies/{currencyId}:
     $ref: "./resources/currency/member.yaml"
 
-  /transactions/types:
+  /transaction_types:
     $ref: "./resources/transaction_type/collection.yaml"
-  /transactions/types/{transactionTypeId}:
+  /transaction_types/{transactionTypeId}:
     $ref: "./resources/transaction_type/member.yaml"
 
-  /transactions/categories:
+  /transaction_categories:
     $ref: "./resources/transaction_category/collection.yaml"
-  /transactions/categories/{transactionCategoryId}:
+  /transaction_categories/{transactionCategoryId}:
     $ref: "./resources/transaction_category/member.yaml"
 
 
