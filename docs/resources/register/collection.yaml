@@ -1,0 +1,44 @@
+post:
+  summary: User Register
+  description: User Register
+  tags:
+    - Registration
+  requestBody: 
+    description: User Register
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              format: string
+              example: "nakama@nakama.com"
+            full_name:
+              type: string
+              format: string
+              example: "Nakama"
+            username:
+              type: string
+              format: string
+              example: "nakama22"
+            password:
+              type: string
+              format: string
+            password_confirmation:
+              type: string
+              format: string
+    required: true
+  responses:
+    201:
+      description: Success register
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityCreated'
+    422:
+      description: Failed when register, request format invalid
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseFormRequestInvalid'

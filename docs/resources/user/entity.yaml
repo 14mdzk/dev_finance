@@ -1,0 +1,46 @@
+schemas:
+  Response:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: success get user profile
+      data:
+        $ref: '#/schemas/Entity'
+
+  Entity:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: integer
+        example: 1
+      username:
+        type: string
+        format: string
+        example: "nakama22"
+      email:
+        type: string
+        format: string
+        example: "nakama@nakama.com"
+      full_name:
+        type: string
+        format: string
+        example: "Nakama"
+      registered_at:
+        type: date
+        format: date
+        example: "01-01-2023"
+  
+  EntityChangePassword:
+    type: object
+    properties:
+      password:
+        type: string
+        format: string
+      password_confirmation:
+        type: string
+        format: string

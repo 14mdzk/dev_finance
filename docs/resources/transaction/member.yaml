@@ -1,0 +1,80 @@
+get:
+  summary: Detail of transaction
+  description: Detail of transaction
+  tags: 
+    - Transaction
+  responses:
+    200:
+      description: Success get detail of transaction
+      content:
+        application/json:
+          schema:
+            $ref: './entity.yaml#/schemas/Response'
+
+    404:
+      description: Failed when get detail of transaction
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityNotFound'
+
+patch:
+  summary: Update transaction data
+  description: Update transaction data
+  tags: 
+    - Transaction
+  requestBody:
+    description: Update transaction data
+    content:
+      application/json:
+        schema:
+          $ref: './entity.yaml#/schemas/Entity'
+    required: true
+  responses:
+    200:
+      description: Success update transaction data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityUpdated'
+
+    400:
+      description: Failed when update transaction data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityUpdateFailed'
+
+    422:
+      description: Failed when update transaction data, request format invalid
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseFormRequestInvalid'
+
+delete:
+  summary: Delete transaction data
+  description: Delete transaction data
+  tags: 
+    - Transaction
+  responses:
+    200:
+      description: Success delete transaction data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityDeleted'
+
+    400:
+      description: Failed when delete transaction data
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityDeleteFailed'
+
+    404:
+      description: Failed when get detail of transaction
+      content:
+        application/json:
+          schema:
+            $ref: './../common.yaml#/schemas/ResponseEntityNotFound'

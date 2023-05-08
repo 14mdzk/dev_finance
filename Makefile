@@ -35,3 +35,6 @@ environment: ## Setup environment.
 
 shell-db: ## Enter to database console
 	docker compose -f ${DOCKER_COMPOSE_FILE} exec db psql -U postgres -d postgres
+
+server: ## Run server.
+	go run cmd/main.go

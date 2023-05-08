@@ -1,0 +1,42 @@
+schemas:
+  Response:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: success get detail of transaction type
+      data:
+        $ref: '#/schemas/Entity'
+
+  ResponseList:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: success get list of transaction type
+      data:
+        type: array
+        items:
+          $ref: '#/schemas/Entity'
+
+  Entity:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: integer
+        example: 1
+      name:
+        type: string
+        format: string
+        example: "Income"
+      description:
+        type: string
+        format: string
+        example: "Income"

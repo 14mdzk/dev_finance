@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: "Mini Project: Financial Management"
+  description: 
+  version: 0.0.0
+servers:
+  - url: http://0.0.0.0:8000
+    description: URL For development server.
+
+tags:
+  - name: Transaction Type
+    description: Transaction Type CRUD data.
+  - name: Transaction Category
+    description: Transaction Category CRUD data.
+  - name: Currency
+    description: Currency CRUD data.
+
+paths:
+  /currencies:
+    $ref: "./resources/currency/collection.yaml"
+  /currencies/{currencyId}:
+    $ref: "./resources/currency/member.yaml"
+
+  /transactions/types:
+    $ref: "./resources/transaction_type/collection.yaml"
+  /transactions/types/{transactionTypeId}:
+    $ref: "./resources/transaction_type/member.yaml"
+
+  /transactions/categories:
+    $ref: "./resources/transaction_category/collection.yaml"
+  /transactions/categories/{transactionCategoryId}:
+    $ref: "./resources/transaction_category/member.yaml"
+
+
+  /register:
+    $ref: "./resources/register/collection.yaml"
+  /user:
+    $ref: "./resources/user/collection.yaml"
+  /user/change_password:
+    $ref: "./resources/user/member.yaml"
