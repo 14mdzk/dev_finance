@@ -5,7 +5,6 @@ help: ## You are here! showing all command documenentation.
 #== Env Variables ==#
 #===================#
 DOCKER_COMPOSE_FILE ?= docker-compose.yaml
-USER ?= root
 
 #========================#
 #== DATABASE MIGRATION ==#
@@ -38,3 +37,6 @@ shell-db: ## Enter to database console
 
 server: ## Run server.
 	go run cmd/main.go
+
+lint: ## Running golangci-lint for code analysis.
+	docker compose -f ${DOCKER_COMPOSE_FILE} --profile tools run --rm lint golangci-lint run -v
