@@ -62,6 +62,16 @@ func main() {
 	}))
 	router.Use(middleware.LogginMiddleware(), middleware.RecoveryMiddleware())
 
+	transactionTypeRepository := repository.NewTransactionTypeRepository(DBConn)
+	transactionTypeService := service.NewTransactionTypeService(transactionTypeRepository)
+	transactionTypeController := controller.NewTransactionTypeController(transactionTypeService)
+
+	router.GET("/transaction_types", transactionTypeController.BrowseTransactionType)
+	router.POST("/transaction_types", transactionTypeController.CreateTransactionType)
+	router.GET("/transaction_types/:id", transactionTypeController.FindTransactionType)
+	router.PATCH("/transaction_types/:id", transactionTypeController.UpdateTransactionType)
+	router.DELETE("/transaction_types/:id", transactionTypeController.DeleteTransactionType)
+
 	currencyRepository := repository.NewCurrencyRepository(DBConn)
 	currencyService := service.NewCurrencyService(currencyRepository)
 	currencyController := controller.NewCurrencyController(currencyService)
