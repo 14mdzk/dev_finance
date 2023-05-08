@@ -1,0 +1,1 @@
+CREATE TABLE IF EXISTS transaction_categories;
