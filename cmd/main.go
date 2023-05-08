@@ -72,6 +72,16 @@ func main() {
 	router.PATCH("/transaction_types/:id", transactionTypeController.UpdateTransactionType)
 	router.DELETE("/transaction_types/:id", transactionTypeController.DeleteTransactionType)
 
+	transactionCategoryRepository := repository.NewTransactionCategoryRepository(DBConn)
+	transactionCategoryService := service.NewTransactionCategoryService(transactionCategoryRepository)
+	transactionCategoryController := controller.NewTransactionCategoryController(transactionCategoryService)
+
+	router.GET("/transaction_categories", transactionCategoryController.BrowseTransactionCategory)
+	router.POST("/transaction_categories", transactionCategoryController.CreateTransactionCategory)
+	router.GET("/transaction_categories/:id", transactionCategoryController.FindTransactionCategory)
+	router.PATCH("/transaction_categories/:id", transactionCategoryController.UpdateTransactionCategory)
+	router.DELETE("/transaction_categories/:id", transactionCategoryController.DeleteTransactionCategory)
+
 	currencyRepository := repository.NewCurrencyRepository(DBConn)
 	currencyService := service.NewCurrencyService(currencyRepository)
 	currencyController := controller.NewCurrencyController(currencyService)

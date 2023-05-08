@@ -30,3 +30,16 @@ var (
 	TransactionTypeFailedUpdate  = "failed to update transaction type"
 	TransactionTypeFailedDelete  = "failed to delete transaction type"
 )
+
+var (
+	TransactionCategoryFound         = "transaction category found"
+	TransactionCategoryNotFound      = "transaction category not found"
+	TransactionCategorySuccessBrowse = "success browse transaction category"
+	TransactionCategorySuccessCreate = "success to create transaction category"
+	TransactionCategorySuccessUpdate = "success to update transaction category"
+	TransactionCategorySuccessDelete = "success to delete transaction category"
+	TransactionCategoryFailedBrowse  = "can't browse transaction category"
+	TransactionCategoryFailedCreate  = "failed to create transaction category"
+	TransactionCategoryFailedUpdate  = "failed to update transaction category"
+	TransactionCategoryFailedDelete  = "failed to delete transaction category"
+)
