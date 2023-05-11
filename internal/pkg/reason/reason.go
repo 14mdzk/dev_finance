@@ -43,3 +43,33 @@ var (
 	TransactionCategoryFailedUpdate  = "failed to update transaction category"
 	TransactionCategoryFailedDelete  = "failed to delete transaction category"
 )
+
+var (
+	UserFound         = "user found"
+	UserNotFound      = "user not found"
+	UserSuccessBrowse = "success browse user"
+	UserSuccessDelete = "success to delete user"
+	UserFailedBrowse  = "can't browse user"
+	UserFailedCreate  = "failed to create user"
+	UserFailedDelete  = "failed to delete user"
+
+	UserPasswordChangeSuccess = "success to change user password"
+	UserPasswordChangeFailed  = "failed to change user password"
+)
+
+var (
+	RegisterSuccess   = "success registered"
+	RegisterFailed    = "failed to register"
+	RegisterUserExist = "failed to register, username already taken"
+
+	PasswordChangeSuccess = "succes to change password"
+	PasswordChangeFailed  = "failed to change password"
+
+	LoginFailed         = "failed to login, please check your credentials"
+	LoginSuccess        = "success to login"
+	RefreshToken        = "success to refresh token"
+	RefreshTokenInvalid = "failed to refresh token"
+
+	Unauthenticated = "unauthenticated, please use your credentials to login"
+	Unauthorized    = "unauthorized, you don't have access to this resource"
+)
