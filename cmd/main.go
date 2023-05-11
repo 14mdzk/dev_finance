@@ -62,6 +62,19 @@ func main() {
 	}))
 	router.Use(middleware.LogginMiddleware(), middleware.RecoveryMiddleware())
 
+	userRepository := repository.NewUserRepository(DBConn)
+	registerService := service.NewRegisterService(userRepository)
+	registerController := controller.NewRegisterController(registerService)
+
+	router.POST("/register", registerController.RegisterUser)
+
+	userService := service.NewUserService(userRepository)
+	userController := controller.NewUserController(userService)
+
+	router.GET("/users", userController.BrowseUser)
+	router.PATCH("/users/:id/change_password", userController.ChangePasswordUser)
+	router.DELETE("/users/:id", userController.DeleteUser)
+
 	transactionTypeRepository := repository.NewTransactionTypeRepository(DBConn)
 	transactionTypeService := service.NewTransactionTypeService(transactionTypeRepository)
 	transactionTypeController := controller.NewTransactionTypeController(transactionTypeService)
