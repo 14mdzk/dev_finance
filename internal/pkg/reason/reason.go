@@ -65,8 +65,11 @@ var (
 	PasswordChangeSuccess = "succes to change password"
 	PasswordChangeFailed  = "failed to change password"
 
-	LoginFailed         = "failed to login, please check your credentials"
-	LoginSuccess        = "success to login"
+	LoginFailed   = "failed to login"
+	LoginSuccess  = "success to login"
+	LogoutFailed  = "failed to logout"
+	LogoutSuccess = "success to logout"
+
 	RefreshToken        = "success to refresh token"
 	RefreshTokenInvalid = "failed to refresh token"
 

@@ -13,6 +13,7 @@ import (
 	"github.com/14mdzk/dev_finance/internal/app/controller"
 	"github.com/14mdzk/dev_finance/internal/app/repository"
 	"github.com/14mdzk/dev_finance/internal/app/service"
+	"github.com/14mdzk/dev_finance/internal/app/service/session"
 	"github.com/14mdzk/dev_finance/internal/pkg/config"
 	"github.com/14mdzk/dev_finance/internal/pkg/db"
 	"github.com/14mdzk/dev_finance/internal/pkg/middleware"
@@ -67,6 +68,18 @@ func main() {
 	registerController := controller.NewRegisterController(registerService)
 
 	router.POST("/register", registerController.RegisterUser)
+
+	authRepository := repository.NewAuthRepository(DBConn)
+	tokenService := service.NewTokenService(cfg.AccessTokenKey, cfg.RefreshTokenKey, cfg.AccessTokenDuration, cfg.RefreshTokenDuration)
+	sessionService := session.NewSessionService(userRepository, authRepository, tokenService)
+	sessionController := controller.NewSessionController(sessionService, tokenService)
+
+	router.POST("/auth/login", sessionController.Login)
+	router.GET("/auth/refresh", sessionController.RefreshToken)
+
+	router.Use(middleware.SessionMiddleware(tokenService))
+
+	router.POST("/auth/logout", sessionController.Logout)
 
 	userService := service.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)

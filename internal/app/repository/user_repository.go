@@ -67,7 +67,7 @@ func (repo *UserRepository) GetByUsername(username string) (model.User, error) {
 	var (
 		user      model.User
 		statement = `
-			SELECT id, username, full_name, created_at
+			SELECT id, username, full_name, password, created_at
 			FROM users
 			WHERE username = $1
 		`
