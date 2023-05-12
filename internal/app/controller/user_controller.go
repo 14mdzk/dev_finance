@@ -38,7 +38,7 @@ func (ctrl *UserController) BrowseUser(ctx *gin.Context) {
 func (ctrl *UserController) DeleteUser(ctx *gin.Context) {
 	err := ctrl.service.Delete(ctx.Param("id"))
 	if err != nil {
-		handler.ResponseError(ctx, http.StatusNotFound, reason.UserNotFound)
+		handler.ResponseError(ctx, http.StatusNotFound, reason.CurrencyNotFound)
 		return
 	}
 
@@ -48,9 +48,9 @@ func (ctrl *UserController) DeleteUser(ctx *gin.Context) {
 func (ctrl *UserController) ChangePasswordUser(ctx *gin.Context) {
 	var req schema.UserChangePasswordReq
 
-	err := ctrl.service.ChangePassword(ctx.Param("id"), req.Password)
+	err := ctrl.service.Delete(ctx.Param("id"))
 	if err != nil {
-		handler.ResponseError(ctx, http.StatusNotFound, reason.UserNotFound)
+		handler.ResponseError(ctx, http.StatusNotFound, reason.CurrencyNotFound)
 		return
 	}
 
@@ -59,5 +59,5 @@ func (ctrl *UserController) ChangePasswordUser(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.UserSuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil)
 }
