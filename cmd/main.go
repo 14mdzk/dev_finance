@@ -118,5 +118,19 @@ func main() {
 	router.PATCH("/currencies/:id", currencyController.UpdateCurrency)
 	router.DELETE("/currencies/:id", currencyController.DeleteCurrency)
 
+	transactionRepository := repository.NewTransactionRepository(DBConn)
+	transactionService := service.NewTransactionService(
+		transactionRepository,
+		transactionCategoryRepository,
+		transactionTypeRepository,
+		userRepository,
+	)
+	transactionController := controller.NewTransactionController(transactionService)
+
+	router.GET("/transactions", transactionController.BrowseTransaction)
+	router.POST("/transactions", transactionController.CreateTransaction)
+	router.PATCH("/transactions/:id", transactionController.UpdateTransaction)
+	router.DELETE("/transactions/:id", transactionController.DeleteTransaction)
+
 	router.Run(fmt.Sprintf(":%s", cfg.ServerPort))
 }

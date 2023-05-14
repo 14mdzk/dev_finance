@@ -43,7 +43,7 @@ func (repo *TransactionTypeRepository) Browse() ([]model.TransactionType, error)
 
 	return transactionTypes, nil
 }
-func (repo *TransactionTypeRepository) GetByID(id string) (model.TransactionType, error) {
+func (repo *TransactionTypeRepository) GetByID(transactionTypeID string) (model.TransactionType, error) {
 	var (
 		transactionType model.TransactionType
 		statement       = `
@@ -53,7 +53,7 @@ func (repo *TransactionTypeRepository) GetByID(id string) (model.TransactionType
 		`
 	)
 
-	err := repo.DB.QueryRowx(statement, id).StructScan(&transactionType)
+	err := repo.DB.QueryRowx(statement, transactionTypeID).StructScan(&transactionType)
 	if err != nil {
 		log.Error(fmt.Errorf("error at Transaction Type Repository - GetByID: %w", err))
 		return transactionType, err
@@ -63,7 +63,7 @@ func (repo *TransactionTypeRepository) GetByID(id string) (model.TransactionType
 }
 
 func (repo *TransactionTypeRepository) Create(transactionType model.TransactionType) error {
-	statement := `INSERT INTO transactionTypes(name, description) VALUES($1, $2)`
+	statement := `INSERT INTO transaction_types(name, description) VALUES($1, $2)`
 	_, err := repo.DB.Exec(statement, transactionType.Name, transactionType.Description)
 	if err != nil {
 		log.Error(fmt.Errorf("error at Transaction Type Repository - Create: %w", err))
@@ -74,7 +74,7 @@ func (repo *TransactionTypeRepository) Create(transactionType model.TransactionT
 }
 func (repo *TransactionTypeRepository) Update(transactionTypeID string, transactionType model.TransactionType) error {
 	statement := `
-		UPDATE transactionTypes
+		UPDATE transaction_types
 		SET
 			updated_at = NOW(),
 			name = $2,

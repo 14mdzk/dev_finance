@@ -45,6 +45,19 @@ var (
 )
 
 var (
+	TransactionFound         = "transaction found"
+	TransactionNotFound      = "transaction not found"
+	TransactionSuccessBrowse = "success browse transaction"
+	TransactionSuccessCreate = "success to create transaction"
+	TransactionSuccessUpdate = "success to update transaction"
+	TransactionSuccessDelete = "success to delete transaction"
+	TransactionFailedBrowse  = "can't browse transaction"
+	TransactionFailedCreate  = "failed to create transaction"
+	TransactionFailedUpdate  = "failed to update transaction"
+	TransactionFailedDelete  = "failed to delete transaction"
+)
+
+var (
 	UserFound         = "user found"
 	UserNotFound      = "user not found"
 	UserSuccessBrowse = "success browse user"
