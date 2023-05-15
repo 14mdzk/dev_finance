@@ -29,7 +29,7 @@ patch:
   summary: Update user profile
   description: Update user profile
   tags: 
-    - Currency
+    - User
   requestBody:
     description: Update user profile
     content:

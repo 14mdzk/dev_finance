@@ -82,7 +82,7 @@ schemas:
   ResponseFormRequestInvalid:
     type: object
     properties:
-      staus:
+      status:
         type: string
         example: "failed"
       message:
@@ -118,3 +118,13 @@ schemas:
       message:
         type: string
         example: "unauthorized"
+
+  ResponseMetaPagination:
+    type: object
+    properties:
+      page:
+        type: int
+        example: 1
+      page_size:
+        type: int
+        example: 10

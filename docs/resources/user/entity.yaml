@@ -10,7 +10,7 @@ schemas:
         example: success get user profile
       data:
         $ref: '#/schemas/Entity'
-
+        
   Entity:
     type: object
     properties:
