@@ -8,19 +8,11 @@ import (
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 )
 
-type CurrencyRepository interface {
-	Browse() ([]model.Currency, error)
-	GetByID(currencyID string) (model.Currency, error)
-	Create(model.Currency) error
-	Update(currencyID string, currency model.Currency) error
-	Delete(currencyID string) error
-}
-
 type CurrencyService struct {
-	repo CurrencyRepository
+	repo ICurrencyRepository
 }
 
-func NewCurrencyService(repo CurrencyRepository) *CurrencyService {
+func NewCurrencyService(repo ICurrencyRepository) *CurrencyService {
 	return &CurrencyService{
 		repo: repo,
 	}

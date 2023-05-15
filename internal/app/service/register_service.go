@@ -9,15 +9,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type RegisterRepository interface {
-	Create(user model.User) error
-}
-
 type RegisterService struct {
-	repo RegisterRepository
+	repo IUserRepository
 }
 
-func NewRegisterService(repo RegisterRepository) *RegisterService {
+func NewRegisterService(repo IUserRepository) *RegisterService {
 	return &RegisterService{
 		repo: repo,
 	}

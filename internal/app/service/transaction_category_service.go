@@ -8,19 +8,11 @@ import (
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 )
 
-type TransactionCategoryRepository interface {
-	Browse() ([]model.TransactionCategory, error)
-	GetByID(transactionCategoryID string) (model.TransactionCategory, error)
-	Create(model.TransactionCategory) error
-	Update(transactionCategoryID string, transactionCategory model.TransactionCategory) error
-	Delete(transactionCategoryID string) error
-}
-
 type TransactionCategoryService struct {
-	repo TransactionCategoryRepository
+	repo ITransactionCategoryRepository
 }
 
-func NewTransactionCategoryService(repo TransactionCategoryRepository) *TransactionCategoryService {
+func NewTransactionCategoryService(repo ITransactionCategoryRepository) *TransactionCategoryService {
 	return &TransactionCategoryService{
 		repo: repo,
 	}
