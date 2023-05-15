@@ -1,52 +1,60 @@
 get:
-  summary: List of currency
-  description: List of currency
+  summary: List of transactions
+  description: List of transactions
   tags: 
-    - Currency
+    - Transaction
+  parameters:
+    - in: path
+      name: transaction_type
+      schema:
+        type: integer
+      required: false
+      description: Numeric ID of transaction type (optional)
+      example: 1
   responses:
     200:
-      description: Success get list of currency
+      description: Success get list of transactions
       content:
         application/json:
           schema:
             $ref: './entity.yaml#/schemas/ResponseList'
 
     400:
-      description: Failed when get list of currency
+      description: Failed when get list of transactions
       content:
         application/json:
           schema:
             $ref: './../common.yaml#/schemas/ResponseEntityFailedToLoad'
 
 post:
-  summary: Create currency data
-  description: Create currency data
+  summary: Create transactions data
+  description: Create transactions data
   tags: 
-    - Currency
+    - Transaction
   requestBody:
-    description: Create currency data
+    description: Create transactions data
     content:
       application/json:
         schema:
-          $ref: './entity.yaml#/schemas/Entity'
+          $ref: './entity.yaml#/schemas/EntityRequest'
     required: true
   responses:
     200:
-      description: Success create currency data
+      description: Success create transactions data
       content:
         application/json:
           schema:
             $ref: './../common.yaml#/schemas/ResponseEntityCreated'
 
     422:
-      description: Failed when create currency data, request format invalid
+      description: Failed when create transactions data, request format invalid
       content:
         application/json:
           schema:
             $ref: './../common.yaml#/schemas/ResponseFormRequestInvalid'
 
-    400:
-      description: Failed when create currency data
+    500:
+      description: Failed when create transactions data
       content:
         application/json:
           schema:

@@ -28,7 +28,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: './entity.yaml#/schemas/Entity'
+          $ref: './entity.yaml#/schemas/EntityRequest'
     required: true
   responses:
     200:
