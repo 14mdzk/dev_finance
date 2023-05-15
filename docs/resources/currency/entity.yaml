@@ -40,3 +40,15 @@ schemas:
         type: string
         format: string
         example: "IDR"
+
+  EntityRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        format: string
+        example: "Indonesia Rupiah"
+      abbreviation:
+        type: string
+        format: string
+        example: "IDR"

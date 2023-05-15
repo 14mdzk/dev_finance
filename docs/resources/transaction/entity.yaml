@@ -7,7 +7,7 @@ schemas:
         example: success
       message:
         type: string
-        example: success get detail of currency
+        example: success get detail of transaction
       data:
         $ref: '#/schemas/Entity'
 
@@ -19,7 +19,7 @@ schemas:
         example: success
       message:
         type: string
-        example: success get list of currency
+        example: success get list of transaction
       data:
         type: array
         items:
@@ -32,16 +32,12 @@ schemas:
         type: date
         format: date
         example: "01-02-2023"
-      transaction_type_id:
-        type: integer
-        format: integer
       transaction_type:
-        $ref: "../transaction_type/entity.yaml#/entity"
-      transaction_category_id:
-        type: integer
-        format: integer
+        $ref: "./../transaction_type/entity.yaml#/schemas/Entity"
       transaction_category:
-        $ref: "../transaction_type/entity.yaml#/entity"
+        $ref: "./../transaction_category/entity.yaml#/schemas/Entity"
+      currency:
+        $ref: "./../currency/entity.yaml#/schemas/Entity"
       note:
         type: string
         format: string
@@ -50,11 +46,6 @@ schemas:
         type: integer
         format: integer
         example: "10000000"
-      currency_id:
-        type: integer
-        format: integer
-      currency:
-        $ref: "../currency/entity.yaml#/entity"
         
   EntityRequest:
     type: object
