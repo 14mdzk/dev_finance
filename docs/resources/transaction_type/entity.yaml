@@ -24,7 +24,9 @@ schemas:
         type: array
         items:
           $ref: '#/schemas/Entity'
-
+      meta:
+        $ref: './../common.yaml#/schemas/ResponseMetaPagination'
+        
   Entity:
     type: object
     properties:
