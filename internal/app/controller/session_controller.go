@@ -45,7 +45,7 @@ func (ctrl *SessionController) Login(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.LoginSuccess, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.LoginSuccess, resp, nil)
 }
 
 func (ctrl *SessionController) Logout(ctx *gin.Context) {
@@ -57,7 +57,7 @@ func (ctrl *SessionController) Logout(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.LogoutSuccess, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.LogoutSuccess, nil, nil)
 }
 
 func (ctrl *SessionController) RefreshToken(ctx *gin.Context) {
@@ -81,5 +81,5 @@ func (ctrl *SessionController) RefreshToken(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.RefreshToken, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.RefreshToken, resp, nil)
 }

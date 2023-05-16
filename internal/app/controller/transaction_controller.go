@@ -12,7 +12,7 @@ import (
 )
 
 type TransactionService interface {
-	BrowseAll(userID int, transactionTypeID int) ([]schema.TransactionResp, error)
+	BrowseAll(userID int, transactionTypeID int, pagination schema.PaginationReq) ([]schema.TransactionResp, error)
 	Create(userID int, req schema.TransactionReq) error
 	Update(userID int, transactionID int, req schema.TransactionReq) error
 	Delete(userID int, transactionID int) error
@@ -37,16 +37,19 @@ func (ctrl *TransactionController) BrowseTransaction(ctx *gin.Context) {
 		return
 	}
 
+	var pagination schema.PaginationReq
+	handler.BindPagination(ctx, &pagination)
+
 	transactionType := ctx.Query("transaction_type")
 	transactionTypeID, _ := strconv.Atoi(transactionType)
 
-	resp, err := ctrl.transactionSvc.BrowseAll(intSub, transactionTypeID)
+	resp, err := ctrl.transactionSvc.BrowseAll(intSub, transactionTypeID, pagination)
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp, pagination)
 }
 
 func (ctrl *TransactionController) CreateTransaction(ctx *gin.Context) {
@@ -70,7 +73,7 @@ func (ctrl *TransactionController) CreateTransaction(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil, nil)
 }
 
 func (ctrl *TransactionController) UpdateTransaction(ctx *gin.Context) {
@@ -100,7 +103,7 @@ func (ctrl *TransactionController) UpdateTransaction(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil, nil)
 }
 
 func (ctrl *TransactionController) DeleteTransaction(ctx *gin.Context) {
@@ -124,5 +127,5 @@ func (ctrl *TransactionController) DeleteTransaction(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessBrowse, nil, nil)
 }

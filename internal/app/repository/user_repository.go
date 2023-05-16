@@ -19,13 +19,14 @@ func NewUserRepository(DBConn *sqlx.DB) *UserRepository {
 	}
 }
 
-func (repo *UserRepository) Browse() ([]model.User, error) {
+func (repo *UserRepository) Browse(pagination string) ([]model.User, error) {
 	var (
 		users     []model.User
-		statement = `
+		statement = fmt.Sprintf(`
 			SELECT id, username, full_name, created_at
 			FROM users
-		`
+			%s
+		`, pagination)
 	)
 
 	rows, err := repo.DB.Queryx(statement)

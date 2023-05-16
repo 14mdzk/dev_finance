@@ -19,13 +19,14 @@ func NewCurrencyRepository(DBConn *sqlx.DB) *CurrencyRepository {
 	}
 }
 
-func (repo *CurrencyRepository) Browse() ([]model.Currency, error) {
+func (repo *CurrencyRepository) Browse(pagination string) ([]model.Currency, error) {
 	var (
 		currencies []model.Currency
-		statement  = `
+		statement  = fmt.Sprintf(`
 			SELECT id, name, abbreviation
 			FROM currencies
-		`
+			%s
+		`, pagination)
 	)
 
 	rows, err := repo.DB.Queryx(statement)

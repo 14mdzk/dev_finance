@@ -10,7 +10,7 @@ import (
 )
 
 type TransactionTypeService interface {
-	BrowseAll() ([]schema.TransactionTypeResp, error)
+	BrowseAll(pagination schema.PaginationReq) ([]schema.TransactionTypeResp, error)
 	FindById(TransactionTypeID string) (schema.TransactionTypeResp, error)
 	Create(req schema.TransactionTypeReq) error
 	Update(TransactionTypeID string, req schema.TransactionTypeReq) error
@@ -28,13 +28,16 @@ func NewTransactionTypeController(service TransactionTypeService) *TransactionTy
 }
 
 func (ctrl *TransactionTypeController) BrowseTransactionType(ctx *gin.Context) {
-	resp, err := ctrl.service.BrowseAll()
+	var pagination schema.PaginationReq
+	handler.BindPagination(ctx, &pagination)
+
+	resp, err := ctrl.service.BrowseAll(pagination)
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, reason.InternalServerError)
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessBrowse, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessBrowse, resp, pagination)
 }
 
 func (ctrl *TransactionTypeController) FindTransactionType(ctx *gin.Context) {
@@ -50,7 +53,7 @@ func (ctrl *TransactionTypeController) FindTransactionType(ctx *gin.Context) {
 		Description: transactionType.Description,
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeFound, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeFound, resp, nil)
 }
 
 func (ctrl *TransactionTypeController) CreateTransactionType(ctx *gin.Context) {
@@ -67,7 +70,7 @@ func (ctrl *TransactionTypeController) CreateTransactionType(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.TransactionTypeSuccessCreate, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.TransactionTypeSuccessCreate, nil, nil)
 }
 
 func (ctrl *TransactionTypeController) UpdateTransactionType(ctx *gin.Context) {
@@ -84,7 +87,7 @@ func (ctrl *TransactionTypeController) UpdateTransactionType(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessUpdate, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessUpdate, nil, nil)
 }
 
 func (ctrl *TransactionTypeController) DeleteTransactionType(ctx *gin.Context) {
@@ -94,5 +97,5 @@ func (ctrl *TransactionTypeController) DeleteTransactionType(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionTypeSuccessDelete, nil, nil)
 }

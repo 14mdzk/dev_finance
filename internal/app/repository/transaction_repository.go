@@ -19,10 +19,10 @@ func NewTransactionRepository(DBConn *sqlx.DB) *TransactionRepository {
 	}
 }
 
-func (repo *TransactionRepository) Browse(userID int) ([]model.Transaction, error) {
+func (repo *TransactionRepository) Browse(userID int, pagination string) ([]model.Transaction, error) {
 	var (
 		transactions []model.Transaction
-		statement    = `
+		statement    = fmt.Sprintf(`
 			SELECT 
 				transactions.id, 
 				user_id, 
@@ -40,7 +40,8 @@ func (repo *TransactionRepository) Browse(userID int) ([]model.Transaction, erro
 			LEFT JOIN currencies
 				ON currency_id = currencies.id
 			WHERE user_id = $1
-		`
+			%s
+		`, pagination)
 	)
 
 	rows, err := repo.DB.Queryx(statement, userID)
@@ -54,10 +55,10 @@ func (repo *TransactionRepository) Browse(userID int) ([]model.Transaction, erro
 	return transactions, nil
 }
 
-func (repo *TransactionRepository) BrowseByTransactionType(userID int, transactionTypeID int) ([]model.Transaction, error) {
+func (repo *TransactionRepository) BrowseByTransactionType(userID int, transactionTypeID int, pagination string) ([]model.Transaction, error) {
 	var (
 		transactions []model.Transaction
-		statement    = `
+		statement    = fmt.Sprintf(`
 			SELECT 
 				transactions.id, 
 				user_id, 
@@ -76,7 +77,8 @@ func (repo *TransactionRepository) BrowseByTransactionType(userID int, transacti
 				ON currency_id = currencies.id
 			WHERE 
 				user_id = $1 AND transaction_type_id = $2
-		`
+			%s
+		`, pagination)
 	)
 
 	rows, err := repo.DB.Queryx(statement, userID, transactionTypeID)

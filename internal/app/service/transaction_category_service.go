@@ -5,6 +5,7 @@ import (
 
 	"github.com/14mdzk/dev_finance/internal/app/model"
 	"github.com/14mdzk/dev_finance/internal/app/schema"
+	"github.com/14mdzk/dev_finance/internal/pkg/helper"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 )
 
@@ -18,10 +19,10 @@ func NewTransactionCategoryService(repo ITransactionCategoryRepository) *Transac
 	}
 }
 
-func (svc *TransactionCategoryService) BrowseAll() ([]schema.TransactionCategoryResp, error) {
+func (svc *TransactionCategoryService) BrowseAll(pagination schema.PaginationReq) ([]schema.TransactionCategoryResp, error) {
 	var resp []schema.TransactionCategoryResp
 
-	transactionCategories, err := svc.repo.Browse()
+	transactionCategories, err := svc.repo.Browse(helper.GeneratePaginationQuery(pagination.Page, pagination.PageSize))
 	if err != nil {
 		return nil, errors.New(reason.TransactionCategoryFailedBrowse)
 	}

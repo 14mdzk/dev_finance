@@ -5,6 +5,7 @@ import (
 
 	"github.com/14mdzk/dev_finance/internal/app/model"
 	"github.com/14mdzk/dev_finance/internal/app/schema"
+	"github.com/14mdzk/dev_finance/internal/pkg/helper"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 )
 
@@ -18,10 +19,10 @@ func NewCurrencyService(repo ICurrencyRepository) *CurrencyService {
 	}
 }
 
-func (svc *CurrencyService) BrowseAll() ([]schema.CurrencyResp, error) {
+func (svc *CurrencyService) BrowseAll(pagination schema.PaginationReq) ([]schema.CurrencyResp, error) {
 	var resp []schema.CurrencyResp
 
-	currencies, err := svc.repo.Browse()
+	currencies, err := svc.repo.Browse(helper.GeneratePaginationQuery(pagination.Page, pagination.PageSize))
 	if err != nil {
 		return nil, errors.New(reason.CurrencyFailedBrowse)
 	}

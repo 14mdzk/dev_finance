@@ -10,7 +10,7 @@ import (
 )
 
 type CurrencyService interface {
-	BrowseAll() ([]schema.CurrencyResp, error)
+	BrowseAll(pagination schema.PaginationReq) ([]schema.CurrencyResp, error)
 	FindById(currencyID string) (schema.CurrencyResp, error)
 	Create(req schema.CurrencyReq) error
 	Update(currencyID string, req schema.CurrencyReq) error
@@ -28,13 +28,16 @@ func NewCurrencyController(service CurrencyService) *CurrencyController {
 }
 
 func (ctrl *CurrencyController) BrowseCurrency(ctx *gin.Context) {
-	resp, err := ctrl.service.BrowseAll()
+	var pagination schema.PaginationReq
+	handler.BindPagination(ctx, &pagination)
+
+	resp, err := ctrl.service.BrowseAll(pagination)
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, reason.InternalServerError)
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp, pagination)
 }
 
 func (ctrl *CurrencyController) FindCurrency(ctx *gin.Context) {
@@ -50,7 +53,7 @@ func (ctrl *CurrencyController) FindCurrency(ctx *gin.Context) {
 		Abbreviation: currency.Abbreviation,
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencyFound, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencyFound, resp, nil)
 }
 
 func (ctrl *CurrencyController) CreateCurrency(ctx *gin.Context) {
@@ -67,7 +70,7 @@ func (ctrl *CurrencyController) CreateCurrency(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessCreate, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.CurrencySuccessCreate, nil, nil)
 }
 
 func (ctrl *CurrencyController) UpdateCurrency(ctx *gin.Context) {
@@ -84,7 +87,7 @@ func (ctrl *CurrencyController) UpdateCurrency(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessUpdate, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessUpdate, nil, nil)
 }
 
 func (ctrl *CurrencyController) DeleteCurrency(ctx *gin.Context) {
@@ -94,5 +97,5 @@ func (ctrl *CurrencyController) DeleteCurrency(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil, nil)
 }

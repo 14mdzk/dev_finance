@@ -8,6 +8,7 @@ import (
 
 	"github.com/14mdzk/dev_finance/internal/app/model"
 	"github.com/14mdzk/dev_finance/internal/app/schema"
+	"github.com/14mdzk/dev_finance/internal/pkg/helper"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 	log "github.com/sirupsen/logrus"
 )
@@ -33,10 +34,10 @@ func NewTransactionService(
 	}
 }
 
-func (svc *TransactionService) BrowseAll(userID int, transactionTypeID int) ([]schema.TransactionResp, error) {
+func (svc *TransactionService) BrowseAll(userID int, transactionTypeID int, pagination schema.PaginationReq) ([]schema.TransactionResp, error) {
 	var resp []schema.TransactionResp
 
-	transactions, err := svc.browse(userID, transactionTypeID)
+	transactions, err := svc.browse(userID, transactionTypeID, helper.GeneratePaginationQuery(pagination.Page, pagination.PageSize))
 	if err != nil {
 		return resp, errors.New(reason.TransactionFailedBrowse)
 	}
@@ -81,9 +82,9 @@ func (svc *TransactionService) BrowseAll(userID int, transactionTypeID int) ([]s
 	return resp, nil
 }
 
-func (svc *TransactionService) browse(userID int, transactionTypeID int) (transactions []model.Transaction, err error) {
-	if transactionTypeID != 0 {
-		transactions, err := svc.transactionRepo.BrowseByTransactionType(userID, transactionTypeID)
+func (svc *TransactionService) browse(userID int, transactionTypeID int, pagination string) (transactions []model.Transaction, err error) {
+	if transactionTypeID > 0 {
+		transactions, err := svc.transactionRepo.BrowseByTransactionType(userID, transactionTypeID, pagination)
 		if err != nil {
 			return transactions, err
 		}
@@ -91,7 +92,7 @@ func (svc *TransactionService) browse(userID int, transactionTypeID int) (transa
 		return transactions, nil
 	}
 
-	transactions, err = svc.transactionRepo.Browse(userID)
+	transactions, err = svc.transactionRepo.Browse(userID, pagination)
 	if err != nil {
 		return transactions, err
 	}

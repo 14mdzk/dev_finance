@@ -15,10 +15,10 @@ func NewUserService(repo IUserRepository) *UserService {
 	}
 }
 
-func (svc *UserService) BrowseAll() ([]schema.UserResp, error) {
+func (svc *UserService) BrowseAll(pagination schema.PaginationReq) ([]schema.UserResp, error) {
 	var resp []schema.UserResp
 
-	users, err := svc.repo.Browse()
+	users, err := svc.repo.Browse(helper.GeneratePaginationQuery(pagination.Page, pagination.PageSize))
 	if err != nil {
 		return resp, err
 	}
