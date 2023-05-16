@@ -1,15 +1,22 @@
 package service
 
 import (
+	"github.com/14mdzk/dev_finance/internal/app/model"
 	"github.com/14mdzk/dev_finance/internal/app/schema"
 	"github.com/14mdzk/dev_finance/internal/pkg/helper"
 )
 
-type UserService struct {
-	repo IUserRepository
+type UserRepository interface {
+	Browse() ([]model.User, error)
+	Delete(userID string) error
+	UpdatePassword(userID string, password string) error
 }
 
-func NewUserService(repo IUserRepository) *UserService {
+type UserService struct {
+	repo UserRepository
+}
+
+func NewUserService(repo UserRepository) *UserService {
 	return &UserService{
 		repo: repo,
 	}

@@ -4,7 +4,7 @@ import (
 	"github.com/14mdzk/dev_finance/internal/app/model"
 )
 
-type ITransactionRepository interface {
+type TransactionRepository interface {
 	Browse(userID int) ([]model.Transaction, error)
 	BrowseByTransactionType(userID int, transactionType int) ([]model.Transaction, error)
 

@@ -13,17 +13,17 @@ import (
 )
 
 type TransactionService struct {
-	transactionRepo         ITransactionRepository
-	transactionCategoryRepo ITransactionCategoryRepository
-	transactionTypeRepo     ITransactionTypeRepository
-	userRepo                IUserRepository
+	transactionRepo         TransactionRepository
+	transactionCategoryRepo TransactionCategoryRepository
+	transactionTypeRepo     TransactionTypeRepository
+	userRepo                UserRepository
 }
 
 func NewTransactionService(
-	transactionRepo ITransactionRepository,
-	transactionCategoryRepo ITransactionCategoryRepository,
-	transactionTypeRepo ITransactionTypeRepository,
-	userRepo IUserRepository,
+	transactionRepo TransactionRepository,
+	transactionCategoryRepo TransactionCategoryRepository,
+	transactionTypeRepo TransactionTypeRepository,
+	userRepo UserRepository,
 ) *TransactionService {
 	return &TransactionService{
 		transactionRepo:         transactionRepo,
