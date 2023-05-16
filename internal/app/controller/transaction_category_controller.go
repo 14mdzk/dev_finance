@@ -10,7 +10,7 @@ import (
 )
 
 type TransactionCategoryService interface {
-	BrowseAll() ([]schema.TransactionCategoryResp, error)
+	BrowseAll(pagination schema.PaginationReq) ([]schema.TransactionCategoryResp, error)
 	FindById(transactionCategoryID string) (schema.TransactionCategoryResp, error)
 	Create(req schema.TransactionCategoryReq) error
 	Update(transactionCategoryID string, req schema.TransactionCategoryReq) error
@@ -28,13 +28,16 @@ func NewTransactionCategoryController(service TransactionCategoryService) *Trans
 }
 
 func (ctrl *TransactionCategoryController) BrowseTransactionCategory(ctx *gin.Context) {
-	resp, err := ctrl.service.BrowseAll()
+	var pagination schema.PaginationReq
+	handler.BindPagination(ctx, &pagination)
+
+	resp, err := ctrl.service.BrowseAll(pagination)
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, reason.InternalServerError)
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessBrowse, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessBrowse, resp, pagination)
 }
 
 func (ctrl *TransactionCategoryController) FindTransactionCategory(ctx *gin.Context) {
@@ -50,7 +53,7 @@ func (ctrl *TransactionCategoryController) FindTransactionCategory(ctx *gin.Cont
 		Description: transactionCategory.Description,
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategoryFound, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategoryFound, resp, nil)
 }
 
 func (ctrl *TransactionCategoryController) CreateTransactionCategory(ctx *gin.Context) {
@@ -67,7 +70,7 @@ func (ctrl *TransactionCategoryController) CreateTransactionCategory(ctx *gin.Co
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusCreated, reason.TransactionCategorySuccessCreate, nil)
+	handler.ResponseSuccess(ctx, http.StatusCreated, reason.TransactionCategorySuccessCreate, nil, nil)
 }
 
 func (ctrl *TransactionCategoryController) UpdateTransactionCategory(ctx *gin.Context) {
@@ -84,7 +87,7 @@ func (ctrl *TransactionCategoryController) UpdateTransactionCategory(ctx *gin.Co
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessUpdate, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessUpdate, nil, nil)
 }
 
 func (ctrl *TransactionCategoryController) DeleteTransactionCategory(ctx *gin.Context) {
@@ -94,5 +97,5 @@ func (ctrl *TransactionCategoryController) DeleteTransactionCategory(ctx *gin.Co
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.TransactionCategorySuccessDelete, nil, nil)
 }

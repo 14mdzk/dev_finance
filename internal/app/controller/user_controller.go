@@ -10,7 +10,7 @@ import (
 )
 
 type UserService interface {
-	BrowseAll() ([]schema.UserResp, error)
+	BrowseAll(pagination schema.PaginationReq) ([]schema.UserResp, error)
 	Delete(userID string) error
 	ChangePassword(userID string, password string) error
 }
@@ -26,13 +26,16 @@ func NewUserController(service UserService) *UserController {
 }
 
 func (ctrl *UserController) BrowseUser(ctx *gin.Context) {
-	resp, err := ctrl.service.BrowseAll()
+	var pagination schema.PaginationReq
+	handler.BindPagination(ctx, &pagination)
+
+	resp, err := ctrl.service.BrowseAll(pagination)
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, reason.InternalServerError)
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessBrowse, resp, pagination)
 }
 
 func (ctrl *UserController) DeleteUser(ctx *gin.Context) {
@@ -42,7 +45,7 @@ func (ctrl *UserController) DeleteUser(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil, nil)
 }
 
 func (ctrl *UserController) ChangePasswordUser(ctx *gin.Context) {
@@ -59,5 +62,5 @@ func (ctrl *UserController) ChangePasswordUser(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.CurrencySuccessDelete, nil, nil)
 }

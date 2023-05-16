@@ -5,6 +5,7 @@ import (
 
 	"github.com/14mdzk/dev_finance/internal/app/model"
 	"github.com/14mdzk/dev_finance/internal/app/schema"
+	"github.com/14mdzk/dev_finance/internal/pkg/helper"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 )
 
@@ -18,10 +19,10 @@ func NewTransactionTypeService(repo ITransactionTypeRepository) *TransactionType
 	}
 }
 
-func (svc *TransactionTypeService) BrowseAll() ([]schema.TransactionTypeResp, error) {
+func (svc *TransactionTypeService) BrowseAll(pagination schema.PaginationReq) ([]schema.TransactionTypeResp, error) {
 	var resp []schema.TransactionTypeResp
 
-	transactionTypes, err := svc.repo.Browse()
+	transactionTypes, err := svc.repo.Browse(helper.GeneratePaginationQuery(pagination.Page, pagination.PageSize))
 	if err != nil {
 		return nil, errors.New(reason.TransactionTypeFailedBrowse)
 	}

@@ -35,5 +35,5 @@ func (ctrl *RegisterController) RegisterUser(ctx *gin.Context) {
 		return
 	}
 
-	handler.ResponseSuccess(ctx, http.StatusOK, reason.RegisterSuccess, nil)
+	handler.ResponseSuccess(ctx, http.StatusOK, reason.RegisterSuccess, nil, nil)
 }

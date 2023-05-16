@@ -5,8 +5,8 @@ import (
 )
 
 type ITransactionRepository interface {
-	Browse(userID int) ([]model.Transaction, error)
-	BrowseByTransactionType(userID int, transactionType int) ([]model.Transaction, error)
+	Browse(userID int, pagination string) ([]model.Transaction, error)
+	BrowseByTransactionType(userID int, transactionType int, pagination string) ([]model.Transaction, error)
 
 	GetByID(userID int, transactionID int) (model.Transaction, error)
 

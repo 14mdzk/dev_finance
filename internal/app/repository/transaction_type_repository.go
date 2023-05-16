@@ -19,13 +19,14 @@ func NewTransactionTypeRepository(DBConn *sqlx.DB) *TransactionTypeRepository {
 	}
 }
 
-func (repo *TransactionTypeRepository) Browse() ([]model.TransactionType, error) {
+func (repo *TransactionTypeRepository) Browse(pagination string) ([]model.TransactionType, error) {
 	var (
 		transactionTypes []model.TransactionType
-		statement        = `
+		statement        = fmt.Sprintf(`
 			SELECT id, name, description
 			FROM transaction_types
-		`
+			%s
+		`, pagination)
 	)
 
 	rows, err := repo.DB.Queryx(statement)
