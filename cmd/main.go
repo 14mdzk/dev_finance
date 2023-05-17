@@ -132,5 +132,8 @@ func main() {
 	router.PATCH("/transactions/:id", transactionController.UpdateTransaction)
 	router.DELETE("/transactions/:id", transactionController.DeleteTransaction)
 
-	router.Run(fmt.Sprintf(":%s", cfg.ServerPort))
+	err := router.Run(fmt.Sprintf(":%s", cfg.ServerPort))
+	if err != nil {
+		log.Error(fmt.Errorf("error when Initializing server: %w", err))
+	}
 }

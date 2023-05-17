@@ -95,7 +95,12 @@ func (repo *TransactionRepository) BrowseByTransactionType(userID int, transacti
 func (repo *TransactionRepository) applyRows(data *sqlx.Rows) (transactions []model.Transaction) {
 	for data.Next() {
 		var transaction model.Transaction
-		data.StructScan(&transaction)
+
+		err := data.StructScan(&transaction)
+		if err != nil {
+			continue
+		}
+
 		transactions = append(transactions, transaction)
 	}
 
