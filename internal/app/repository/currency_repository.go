@@ -37,7 +37,11 @@ func (repo *CurrencyRepository) Browse(pagination string) ([]model.Currency, err
 
 	for rows.Next() {
 		var currency model.Currency
-		rows.StructScan(&currency)
+
+		err = rows.StructScan(&currency)
+		if err != nil {
+			continue
+		}
 
 		currencies = append(currencies, currency)
 	}

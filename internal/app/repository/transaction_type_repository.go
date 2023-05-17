@@ -37,7 +37,11 @@ func (repo *TransactionTypeRepository) Browse(pagination string) ([]model.Transa
 
 	for rows.Next() {
 		var transactionType model.TransactionType
-		rows.StructScan(&transactionType)
+
+		err = rows.StructScan(&transactionType)
+		if err != nil {
+			continue
+		}
 
 		transactionTypes = append(transactionTypes, transactionType)
 	}

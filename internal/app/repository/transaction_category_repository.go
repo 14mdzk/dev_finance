@@ -37,7 +37,11 @@ func (repo *TransactionCategoryRepository) Browse(pagination string) ([]model.Tr
 
 	for rows.Next() {
 		var transactionCategory model.TransactionCategory
-		rows.StructScan(&transactionCategory)
+
+		err = rows.StructScan(&transactionCategory)
+		if err != nil {
+			continue
+		}
 
 		transactionCategories = append(transactionCategories, transactionCategory)
 	}

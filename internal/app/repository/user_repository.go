@@ -37,7 +37,11 @@ func (repo *UserRepository) Browse(pagination string) ([]model.User, error) {
 
 	for rows.Next() {
 		var user model.User
-		rows.StructScan(&user)
+
+		err = rows.StructScan(&user)
+		if err != nil {
+			continue
+		}
 
 		users = append(users, user)
 	}
