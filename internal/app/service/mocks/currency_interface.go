@@ -35,18 +35,18 @@ func (m *MockICurrencyRepository) EXPECT() *MockICurrencyRepositoryMockRecorder 
 }
 
 // Browse mocks base method.
-func (m *MockICurrencyRepository) Browse() ([]model.Currency, error) {
+func (m *MockICurrencyRepository) Browse(pagination string) ([]model.Currency, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Browse")
+	ret := m.ctrl.Call(m, "Browse", pagination)
 	ret0, _ := ret[0].([]model.Currency)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Browse indicates an expected call of Browse.
-func (mr *MockICurrencyRepositoryMockRecorder) Browse() *gomock.Call {
+func (mr *MockICurrencyRepositoryMockRecorder) Browse(pagination interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockICurrencyRepository)(nil).Browse))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockICurrencyRepository)(nil).Browse), pagination)
 }
 
 // Create mocks base method.

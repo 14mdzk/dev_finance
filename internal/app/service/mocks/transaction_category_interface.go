@@ -35,18 +35,18 @@ func (m *MockITransactionCategoryRepository) EXPECT() *MockITransactionCategoryR
 }
 
 // Browse mocks base method.
-func (m *MockITransactionCategoryRepository) Browse() ([]model.TransactionCategory, error) {
+func (m *MockITransactionCategoryRepository) Browse(pagination string) ([]model.TransactionCategory, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Browse")
+	ret := m.ctrl.Call(m, "Browse", pagination)
 	ret0, _ := ret[0].([]model.TransactionCategory)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Browse indicates an expected call of Browse.
-func (mr *MockITransactionCategoryRepositoryMockRecorder) Browse() *gomock.Call {
+func (mr *MockITransactionCategoryRepositoryMockRecorder) Browse(pagination interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockITransactionCategoryRepository)(nil).Browse))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockITransactionCategoryRepository)(nil).Browse), pagination)
 }
 
 // Create mocks base method.

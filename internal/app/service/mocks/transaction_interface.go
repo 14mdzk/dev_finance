@@ -35,33 +35,33 @@ func (m *MockITransactionRepository) EXPECT() *MockITransactionRepositoryMockRec
 }
 
 // Browse mocks base method.
-func (m *MockITransactionRepository) Browse(userID int) ([]model.Transaction, error) {
+func (m *MockITransactionRepository) Browse(userID int, pagination string) ([]model.Transaction, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Browse", userID)
+	ret := m.ctrl.Call(m, "Browse", userID, pagination)
 	ret0, _ := ret[0].([]model.Transaction)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Browse indicates an expected call of Browse.
-func (mr *MockITransactionRepositoryMockRecorder) Browse(userID interface{}) *gomock.Call {
+func (mr *MockITransactionRepositoryMockRecorder) Browse(userID, pagination interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockITransactionRepository)(nil).Browse), userID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Browse", reflect.TypeOf((*MockITransactionRepository)(nil).Browse), userID, pagination)
 }
 
 // BrowseByTransactionType mocks base method.
-func (m *MockITransactionRepository) BrowseByTransactionType(userID, transactionType int) ([]model.Transaction, error) {
+func (m *MockITransactionRepository) BrowseByTransactionType(userID, transactionType int, pagination string) ([]model.Transaction, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "BrowseByTransactionType", userID, transactionType)
+	ret := m.ctrl.Call(m, "BrowseByTransactionType", userID, transactionType, pagination)
 	ret0, _ := ret[0].([]model.Transaction)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // BrowseByTransactionType indicates an expected call of BrowseByTransactionType.
-func (mr *MockITransactionRepositoryMockRecorder) BrowseByTransactionType(userID, transactionType interface{}) *gomock.Call {
+func (mr *MockITransactionRepositoryMockRecorder) BrowseByTransactionType(userID, transactionType, pagination interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BrowseByTransactionType", reflect.TypeOf((*MockITransactionRepository)(nil).BrowseByTransactionType), userID, transactionType)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BrowseByTransactionType", reflect.TypeOf((*MockITransactionRepository)(nil).BrowseByTransactionType), userID, transactionType, pagination)
 }
 
 // Create mocks base method.
