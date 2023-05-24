@@ -33,3 +33,9 @@ migrate-version                run migration to specific version
 server                         run the server
 shell-db                       enter to database console
 ```
+
+## Example Users
+Username:
+    1. admin
+    2. user_1
+Password: satudua3

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"reflect"
 
 	"github.com/14mdzk/dev_finance/internal/app/schema"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
@@ -19,10 +18,6 @@ func ResponseError(ctx *gin.Context, statusCode int, message string) {
 }
 
 func ResponseSuccess(ctx *gin.Context, statusCode int, message string, data interface{}, pagination interface{}) {
-	if data == nil || reflect.ValueOf(data).IsNil() {
-		pagination = nil
-	}
-
 	resp := ResponseBody{
 		Status:   "success",
 		Message:  message,
