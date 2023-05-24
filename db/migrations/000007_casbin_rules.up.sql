@@ -49,10 +49,6 @@ INSERT INTO casbin_rules (p_type,v0,v1,v2) VALUES
      ('g', 'admin', 'currencies', 'read'),
      ('g', 'admin', 'currencies', 'update'),
      ('g', 'admin', 'currencies', 'delete'),
-     ('g', 'admin', 'transaction_types', 'create'),
-     ('g', 'admin', 'transaction_types', 'read'),
-     ('g', 'admin', 'transaction_types', 'update'),
-     ('g', 'admin', 'transaction_types', 'delete'),
      ('g', 'admin', 'users', 'read'),
      ('g', 'admin', 'users', 'change_password'),
      ('g', 'admin', 'users', 'delete'),
@@ -67,6 +63,9 @@ INSERT INTO casbin_rules (p_type,v0,v1,v2) VALUES
      ('p', 'profile', 'profile', 'read'),
      ('p', 'profile', 'profile', 'change_password'),
 
+     ('g', 'user', 'transaction_types', 'read'),
+     ('g', 'user', 'transaction_categories', 'read'),
+     ('g', 'user', 'currencies', 'read'),
      ('g', 'user', 'transactions', 'create'),
      ('g', 'user', 'transactions', 'read'),
      ('g', 'user', 'transactions', 'update'),
@@ -74,4 +73,5 @@ INSERT INTO casbin_rules (p_type,v0,v1,v2) VALUES
 
      ('g', 'user', 'profile', 'read'),
      ('g', 'user', 'profile', 'change_password'),
+
      ('g', 'usr', 'user', '');

@@ -5,3 +5,5 @@ CREATE TABLE IF NOT EXISTS currencies (
   created_at TIMESTAMPTZ,
   updated_at TIMESTAMPTZ
 );
+
+INSERT INTO currencies(name, abbreviation) VALUES('Indonesian Rupiah', 'IDR');

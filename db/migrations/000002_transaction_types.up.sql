@@ -5,3 +5,7 @@ CREATE TABLE IF NOT EXISTS transaction_types (
   created_at TIMESTAMPTZ,
   updated_at TIMESTAMPTZ
 );
+
+INSERT INTO transaction_types(name, description) VALUES
+  ('income', 'income'),
+  ('outcome', 'outcome');
