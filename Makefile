@@ -36,7 +36,7 @@ shell-db: ## enter to database console
 	docker compose -f ${DOCKER_COMPOSE_FILE} exec db psql -U postgres -d postgres
 
 server: ## run the server
-	go run cmd/main.go
+	go run cmd/*.go
 
 lint: ## run golangci-lint for code analysis
 	docker compose -f ${DOCKER_COMPOSE_FILE} --profile tools run --rm lint golangci-lint run -v
