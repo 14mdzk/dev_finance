@@ -30,6 +30,7 @@ func NewTransactionCategoryController(service TransactionCategoryService) *Trans
 func (ctrl *TransactionCategoryController) BrowseTransactionCategory(ctx *gin.Context) {
 	var pagination schema.PaginationReq
 	handler.BindPagination(ctx, &pagination)
+	// pagination := schema.PaginationReq{Page: 1, PageSize: 2}
 
 	resp, err := ctrl.service.BrowseAll(pagination)
 	if err != nil {

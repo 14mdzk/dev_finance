@@ -7,7 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func LogginMiddleware() gin.HandlerFunc {
+func Logging() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		startTime := time.Now()
 		ctx.Next()

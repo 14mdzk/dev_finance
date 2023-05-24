@@ -13,7 +13,7 @@ type AccessTokenVerifier interface {
 	VerifyAccessToken(tokenString string) (string, error)
 }
 
-func SessionMiddleware(tokenMaker AccessTokenVerifier) gin.HandlerFunc {
+func Session(tokenMaker AccessTokenVerifier) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		accessToken := tokenFromHeader(ctx)
 		if accessToken == "" {
