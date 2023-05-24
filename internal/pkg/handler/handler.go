@@ -1,14 +1,13 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
+	"reflect"
 
 	"github.com/14mdzk/dev_finance/internal/app/schema"
 	"github.com/14mdzk/dev_finance/internal/pkg/reason"
 	"github.com/14mdzk/dev_finance/internal/pkg/validator"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 func ResponseError(ctx *gin.Context, statusCode int, message string) {
@@ -20,6 +19,10 @@ func ResponseError(ctx *gin.Context, statusCode int, message string) {
 }
 
 func ResponseSuccess(ctx *gin.Context, statusCode int, message string, data interface{}, pagination interface{}) {
+	if data == nil || reflect.ValueOf(data).IsNil() {
+		pagination = nil
+	}
+
 	resp := ResponseBody{
 		Status:   "success",
 		Message:  message,
@@ -47,7 +50,7 @@ func BindAndValidate(ctx *gin.Context, data interface{}) bool {
 
 func BindPagination(ctx *gin.Context, data *schema.PaginationReq) {
 	_ = ctx.ShouldBind(data)
-	logrus.Error(fmt.Println(data))
+
 	if data.Page <= 0 {
 		data.Page = 1
 	}

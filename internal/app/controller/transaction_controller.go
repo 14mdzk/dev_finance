@@ -44,6 +44,7 @@ func (ctrl *TransactionController) BrowseTransaction(ctx *gin.Context) {
 	transactionTypeID, _ := strconv.Atoi(transactionType)
 
 	resp, err := ctrl.transactionSvc.BrowseAll(intSub, transactionTypeID, pagination)
+
 	if err != nil {
 		handler.ResponseError(ctx, http.StatusInternalServerError, err.Error())
 		return
